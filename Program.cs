@@ -21,25 +21,40 @@ internal class Program
             {
                 case "1":
                     // Add Food Logic
+                    // *** Add basic error handling ***
                     Console.Write("Enter the name of the food item: ");
                     string name = Console.ReadLine();
+                    // make sure name is not empty or already in the list
+
                     Console.Write("Enter the category of " + name + ": ");
                     string category = Console.ReadLine();
+                    // make sure category is not empty
+
                     Console.Write("Enter the quantity of " + name + ": ");
                     int quantity = int.Parse(Console.ReadLine());
+                    // make sure quantity is a positive integer
+
                     Console.Write("Enter the expiration date of " + name + ": ");
                     string expirationDate = Console.ReadLine();
+                    // make sure expiration date is not empty
 
                     FoodItem item = new FoodItem(name, category, quantity, expirationDate);
                     foodItems = item.AddFoodItem(foodItems);
-                    Console.WriteLine(name + " has been added to the list.");
+                    Console.WriteLine("\n" + name + " has been added to the list.\n");
 
                     break;
                 case "2":
                     // Delete Food Logic
+                    Console.Write("Enter the name of the food item you want to delete: ");
+                    string delName = Console.ReadLine().ToLower();
+                    // loop though the list of food items by index 0 of each array (lowercase) to see if delName in list
+                    // if found, call delete method
+
+                    //if not, break back to main menu
                     break;
                 case "3":
                     // Print list of current food items
+                    PrintList(foodItems);
                     break;
                 case "4":
                     running = false;
@@ -55,10 +70,18 @@ internal class Program
 
     }
 
-    //public Array PrintList()
-    //{
-    //    // code to print list of food items
-    //    return foodItems;
+    public static void PrintList(List<string[]> list)
+    {
+        // code to print list of food items
+        for (int i = 0; i < list.Count; i++)
+        {
+            Console.WriteLine("Food Item " + (i + 1) + ":");
+            Console.WriteLine("Name: " + list[i][0]);
+            Console.WriteLine("Category: " + list[i][1]);
+            Console.WriteLine("Quantity: " + list[i][2]);
+            Console.WriteLine("Expiration Date: " + list[i][3]);
+            Console.WriteLine("-------------------------------------");
+        }
 
-    //}
+    }
 }
