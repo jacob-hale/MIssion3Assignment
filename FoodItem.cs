@@ -22,19 +22,20 @@ namespace MIssion3Assignment
             // array of arrays to hold food item details
         }
 
-        public List<string[]> AddFoodItem(List<string[]> list)
+
+        public List<FoodItem> AddFoodItem(List<FoodItem> list)
         {
             // code to add food item into array
-            string[] itemData = { name, category, quantity.ToString(), expirationDate };
-            list.Add(itemData);
+            list.Add(this);
             return list;
         }
 
-        public void DeleteFoodItem()
+        public List<FoodItem> DeleteFoodItem(List<FoodItem> list, String delName)
         {
             // code to delete food item from array
-            // enter name of food item to delete
-            // loop through array to find food item and delete it
+            list.RemoveAll(item => item.name.Equals(delName, StringComparison.OrdinalIgnoreCase));
+
+            return list;
         }
 
         
