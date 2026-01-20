@@ -4,7 +4,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        List<string[]> foodItems = new List<string[]>();
+        List<FoodItem> foodItems = new List<FoodItem>();
         bool running = true;
 
         while (running)
@@ -46,11 +46,21 @@ internal class Program
                 case "2":
                     // Delete Food Logic
                     Console.Write("Enter the name of the food item you want to delete: ");
-                    string delName = Console.ReadLine().ToLower();
+                    string delName = Console.ReadLine();
                     // loop though the list of food items by index 0 of each array (lowercase) to see if delName in list
                     // if found, call delete method
-
+                    if (foodItems.Any(item => item.name.Equals(delName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        FoodItem tempItem = new FoodItem("", "", 0, "");
+                        foodItems = tempItem.DeleteFoodItem(foodItems, delName);
+                        Console.WriteLine("\n" + delName + " has been deleted from the list.\n");
+                    }
                     //if not, break back to main menu
+                    else
+                    {
+                        Console.WriteLine("\n" + delName + " was not found in the list.\n");
+                    }
+
                     break;
                 case "3":
                     // Print list of current food items
@@ -70,17 +80,17 @@ internal class Program
 
     }
 
-    public static void PrintList(List<string[]> list)
+    public static void PrintList(List<FoodItem> list)
     {
         // code to print list of food items
         for (int i = 0; i < list.Count; i++)
         {
-            Console.WriteLine("Food Item " + (i + 1) + ":");
-            Console.WriteLine("Name: " + list[i][0]);
-            Console.WriteLine("Category: " + list[i][1]);
-            Console.WriteLine("Quantity: " + list[i][2]);
-            Console.WriteLine("Expiration Date: " + list[i][3]);
-            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("\nFood Item " + (i + 1) + ":");
+            Console.WriteLine("Name: " + list[i].name);
+            Console.WriteLine("Category: " + list[i].category);
+            Console.WriteLine("Quantity: " + list[i].quantity);
+            Console.WriteLine("Expiration Date: " + list[i].expirationDate);
+            Console.WriteLine("------------------------------------- \n");
         }
 
     }
