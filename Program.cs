@@ -1,4 +1,6 @@
 ﻿using MIssion3Assignment;
+using System.Collections;
+using System.Collections.Generic;
 
 internal class Program
 {
@@ -21,22 +23,57 @@ internal class Program
             {
                 case "1":
                     // Add Food Logic
-                    // *** Add basic error handling ***
-                    Console.Write("Enter the name of the food item: ");
-                    string name = Console.ReadLine();
-                    // make sure name is not empty or already in the list
+                    // *** with basic error handling ***
+                    string name = "";
+                    while (true)
+                    {
+                        Console.Write("Enter the name of the food item: ");
+                        name = Console.ReadLine();
+                        // make sure name is not empty or already in the list
+                        if (string.IsNullOrWhiteSpace(name))
+                        {
+                            Console.WriteLine("Error: Name cannot be empty.");
+                        }
+                        else if (foodItems.Any(item => item.name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            Console.WriteLine("Error: This food item already exists in the list.");
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    
+                    string category = "";
+                    while (string.IsNullOrWhiteSpace(category)) 
+                    {
+                        Console.Write("Enter the category of " + name + ": ");
+                        category = Console.ReadLine();
+                        // make sure category is not empty
+                        if (string.IsNullOrWhiteSpace(category)) Console.WriteLine("Error: Category cannot be empty.");
+                    }
 
-                    Console.Write("Enter the category of " + name + ": ");
-                    string category = Console.ReadLine();
-                    // make sure category is not empty
+                    int quantity;
+                    while (true)
+                    {
+                        Console.Write("Enter the quantity of " + name + ": ");
+                        // make sure quantity is a positive integer
+                        if (int.TryParse(Console.ReadLine(), out quantity) && quantity >= 0)
+                        {
+                            break;
+                        }
+                        Console.WriteLine("Error: Please enter a valid positive number.");
+                    }
 
-                    Console.Write("Enter the quantity of " + name + ": ");
-                    int quantity = int.Parse(Console.ReadLine());
-                    // make sure quantity is a positive integer
+                    string expirationDate = "";
 
-                    Console.Write("Enter the expiration date of " + name + ": ");
-                    string expirationDate = Console.ReadLine();
-                    // make sure expiration date is not empty
+                    while (string.IsNullOrWhiteSpace(expirationDate))
+                    {
+                        Console.Write("Enter the expiration date of " + name + ": ");
+                        expirationDate = Console.ReadLine()?.Trim();
+                        // make sure expiration date is not empty
+                        if (string.IsNullOrWhiteSpace(expirationDate)) Console.WriteLine("Error: Date cannot be empty.");
+                    }
 
                     FoodItem item = new FoodItem(name, category, quantity, expirationDate);
                     foodItems = item.AddFoodItem(foodItems);

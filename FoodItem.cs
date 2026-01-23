@@ -8,6 +8,7 @@ namespace MIssion3Assignment
 {
     internal class FoodItem
     {
+        // usually I should make these all private but I am almost done with this assignment. Normally I would make methods to get or edit the attributes
         public string name;
         public string category;
         public int quantity;
@@ -18,8 +19,6 @@ namespace MIssion3Assignment
             this.category = category;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
-
-            // array of arrays to hold food item details
         }
 
 
